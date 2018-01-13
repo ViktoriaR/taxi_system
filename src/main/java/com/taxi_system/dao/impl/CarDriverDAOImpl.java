@@ -6,6 +6,7 @@ import javafx.util.Pair;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,5 +54,4 @@ public class CarDriverDAOImpl extends AbstractCRUD<CarDriver> implements CarDriv
         }
         return carDriver;
     }
-
 }

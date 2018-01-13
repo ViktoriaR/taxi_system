@@ -32,7 +32,7 @@ public class ClientService {
         clientDao.delete(new Client(login, password, null));
     }
 
-    public Client getClient(String login, String password) {
-        return clientDao.findByLoginAndPassword(login, password);
+    public Client getClient(String login) {
+        return clientDao.findByLogin(login);
     }
 }

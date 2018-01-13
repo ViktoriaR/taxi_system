@@ -64,6 +64,6 @@ public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountD
     @Override
     public Discount getDiscountOnSum(long sum) {
         List<Discount> list = read(Arrays.asList("bottom_sum <= " + sum, "upper_sum >= " + sum));
-        return list != null ? list.get(0) : null;
+        return list.isEmpty() ? null : list.get(0);
     }
 }

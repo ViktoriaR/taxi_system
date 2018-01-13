@@ -7,4 +7,5 @@ import com.taxi_system.db_entities.Discount;
  */
 public interface DiscountDAO {
     Discount getDiscountOnSum(long sum);
+    Discount getById(int id);
 }

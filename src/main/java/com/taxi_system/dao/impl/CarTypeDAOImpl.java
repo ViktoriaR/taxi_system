@@ -6,6 +6,7 @@ import javafx.util.Pair;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,5 +61,11 @@ public class CarTypeDAOImpl extends AbstractCRUD<CarType> implements CarTypeDAO 
     @Override
     public List<CarType> getCarTypes() {
         return read(null);
+    }
+
+    @Override
+    public CarType getByName(String type) {
+        List<CarType> list = read(Arrays.asList("type =  '" + type + "'"));
+        return list.isEmpty() ? null : list.get(0);
     }
 }

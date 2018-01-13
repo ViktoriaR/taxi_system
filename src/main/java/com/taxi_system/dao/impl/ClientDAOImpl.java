@@ -78,5 +78,4 @@ public class ClientDAOImpl extends AbstractCRUD<Client> implements ClientDAO {
     public void add(String login, String password, String name) {
         create(new Client(login, password, name));
     }
-
 }

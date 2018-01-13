@@ -31,7 +31,7 @@ public class Client implements Serializable {
         return clientId;
     }
 
-    public void setClientId(int clientId) {
+    public void setId(int clientId) {
         this.clientId = clientId;
     }
 

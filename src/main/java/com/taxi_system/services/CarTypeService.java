@@ -19,4 +19,8 @@ public class CarTypeService {
     public List<CarType> getCarTypes() {
         return carTypeDAO.getCarTypes();
     }
+
+    public  CarType getCarTypeByName(String type) {
+        return carTypeDAO.getByName(type);
+    }
 }

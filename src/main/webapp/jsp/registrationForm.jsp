@@ -18,7 +18,7 @@
     </c:if>
 
     <form action="/" method="post">
-        <%--Login input field with value and predifined attribute username from command--%>
+        <%--Login input field with value and predifined attribute login from command--%>
         <label for="login">Login:</label>
         <input id="login" type="text" name="login" value="${login}"/><br>
 
@@ -26,7 +26,7 @@
         <label for="password">Password:</label>
         <input id="password" type="password" name="password"/><br>
 
-        <%--Name input field with label--%>
+        <%--Name input field with value and predifined attribute name from command--%>
         <label for="name">Name:</label>
         <input id="name" type="text" name="name" value="${name}"/><br>
 

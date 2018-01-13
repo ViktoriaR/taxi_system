@@ -2,17 +2,16 @@ package com.taxi_system.db_entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 /**
  * Created by Victoria on 23.12.2017.
  */
 public class Orders implements Serializable {
     private int id;
-    private Integer clientId;
-    private Integer carId;
-    private Integer discountId;
-    private Integer stockId;
+    private Client client;
+    private Car car;
+    private Discount discount;
+    private Stock stock;
     private Timestamp arrivalTime;
     private String fromAddress;
     private String toAddress;
@@ -22,8 +21,8 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
-    public Orders(int clientId, String fromAddress, String toAddress) {
-        this.clientId = clientId;
+    public Orders(Client client, String fromAddress, String toAddress) {
+        this.client = client;
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
     }
@@ -32,44 +31,44 @@ public class Orders implements Serializable {
         return id;
     }
 
-    public Orders id(int id) {
+    public Orders setId(int id) {
         this.id = id;
         return this;
     }
 
-    public Integer getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public Orders clientId(Integer clientId) {
-        this.clientId = clientId;
+    public Orders setClient(Client client) {
+        this.client = client;
         return this;
     }
 
-    public Integer getCarId() {
-        return carId;
+    public Car getCar() {
+        return car;
     }
 
-    public Orders carId(Integer carId) {
-        this.carId = carId;
+    public Orders setCar(Car car) {
+        this.car = car;
         return this;
     }
 
-    public Integer getDiscountId() {
-        return discountId;
+    public Discount getDiscount() {
+        return discount;
     }
 
-    public Orders discountId(Integer discountId) {
-        this.discountId = discountId;
+    public Orders setDiscount(Discount discount) {
+        this.discount = discount;
         return this;
     }
 
-    public Integer getStockId() {
-        return stockId;
+    public Stock getStock() {
+        return stock;
     }
 
-    public Orders stockId(Integer stockId) {
-        this.stockId = stockId;
+    public Orders setStock(Stock stock) {
+        this.stock = stock;
         return this;
     }
 
@@ -77,7 +76,7 @@ public class Orders implements Serializable {
         return arrivalTime;
     }
 
-    public Orders arrivalTime(Timestamp arrivalTime) {
+    public Orders setArrivalTime(Timestamp arrivalTime) {
         this.arrivalTime = arrivalTime;
         return this;
     }
@@ -86,7 +85,7 @@ public class Orders implements Serializable {
         return fromAddress;
     }
 
-    public Orders fromAddress(String fromAddress) {
+    public Orders setFromAddress(String fromAddress) {
         this.fromAddress = fromAddress;
         return this;
     }
@@ -95,7 +94,7 @@ public class Orders implements Serializable {
         return toAddress;
     }
 
-    public Orders toAddress(String toAddress) {
+    public Orders setToAddress(String toAddress) {
         this.toAddress = toAddress;
         return this;
     }
@@ -104,7 +103,7 @@ public class Orders implements Serializable {
         return distance;
     }
 
-    public Orders distance(float distance) {
+    public Orders setDistance(float distance) {
         this.distance = distance;
         return this;
     }
@@ -113,8 +112,14 @@ public class Orders implements Serializable {
         return price;
     }
 
-    public Orders price(float price) {
+    public Orders setPrice(float price) {
         this.price = price;
         return this;
+    }
+
+    public float getAmount() {
+        float discount = getDiscount() != null ? getDiscount().getPercent() : 0;
+        float stock = getStock() != null ? getStock().getPercent() : 0;
+        return price - price * discount - price * stock;
     }
 }

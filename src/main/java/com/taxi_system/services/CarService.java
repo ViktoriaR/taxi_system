@@ -18,14 +18,18 @@ public class CarService {
     }
 
     public List<Car> findAvailableCars(CarType carType) {
-        return carDAO.findAvailableCarByTypeId(carType.getId());
+        return carDAO.findAvailableCarByType(carType);
     }
 
     public boolean bookCar(Car car) {
-        return carDAO.changeCarStatus(car.getId(), false);
+        return carDAO.changeCarStatus(car, false);
     }
 
     public boolean freeCar(Car car) {
-        return carDAO.changeCarStatus(car.getId(), true);
+        return carDAO.changeCarStatus(car, true);
+    }
+
+    public Car getCarById(int id) {
+        return carDAO.getById(id);
     }
 }

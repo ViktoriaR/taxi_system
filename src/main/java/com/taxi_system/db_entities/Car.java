@@ -7,17 +7,17 @@ import java.io.Serializable;
  */
 public class Car implements Serializable {
     private int id;
-    private Integer carTypeId;
-    private Integer carDriverId;
+    private CarType carType;
+    private CarDriver carDriver;
     private String model;
     private String number;
     private boolean available;
     private String location;
 
-    public Car(int id, Integer carTypeId, Integer carDriverId, String model, String number, boolean available, String location) {
+    public Car(int id, CarType carType, CarDriver carDriver, String model, String number, boolean available, String location) {
         this.id = id;
-        this.carTypeId = carTypeId;
-        this.carDriverId = carDriverId;
+        this.carType = carType;
+        this.carDriver = carDriver;
         this.model = model;
         this.number = number;
         this.available = available;
@@ -28,12 +28,12 @@ public class Car implements Serializable {
         return id;
     }
 
-    public Integer getCarTypeId() {
-        return carTypeId;
+    public CarType getCarType() {
+        return carType;
     }
 
-    public Integer getCarDriverId() {
-        return carDriverId;
+    public CarDriver getCarDriver() {
+        return carDriver;
     }
 
     public String getModel() {
@@ -62,8 +62,8 @@ public class Car implements Serializable {
         result.append("id = ").append(id);
         result.append(", car number = ").append(number);
         result.append(", car model = ").append(model);
-        result.append(", ").append(carTypeId);
-        result.append(", ").append(carDriverId);
+        result.append(", ").append(carType.getType());
+        result.append(", ").append(carDriver.getName());
         result.append(", available =  ").append(available);
         result.append(", location =  ").append(location);
         return result.toString();

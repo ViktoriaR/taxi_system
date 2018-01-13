@@ -19,4 +19,6 @@ public interface ClientDAO {
     int update(Client client);
 
     int delete(Client client);
+
+    Client getById(int id);
 }

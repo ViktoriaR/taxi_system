@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -99,7 +100,11 @@ public abstract class AbstractCRUD<T> {
             stringBuilder.append(" AND ").append(condition);
         }
         return stringBuilder.toString();
+    }
 
+    public T getById(int id) {
+        List<T> list = read(Arrays.asList("id =  " + id));
+        return list.isEmpty() ? null : list.get(0);
     }
 
     protected abstract String getCreateQuery(T object);

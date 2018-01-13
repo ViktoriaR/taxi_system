@@ -5,8 +5,7 @@ package com.taxi_system.services;
  */
 public class DistanceService {
     public float calculateDistance(String fromAddress, String toAddress) {
-        float result = (float) (toAddress.hashCode() - fromAddress.hashCode()) / 10;
-        if (result < 0) result = -result;
+        float result = Math.abs( toAddress.hashCode() - fromAddress.hashCode()) % 100;
         return result;
     }
 }
