@@ -22,10 +22,12 @@ import java.util.List;
 public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
 
     @Override
-    protected String getCreateQuery(Car object) {
+    public String getCreateQuery(Car object) {
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO car(type_id, driver_id, model, number, available, location) VALUES(");
-        stringBuilder.append(object.getCarType().getId()).append(", ");
-        stringBuilder.append(object.getCarDriver().getId()).append(", '");
+        Long carTypeId = object.getCarType() == null ? null : object.getCarType().getId();
+        stringBuilder.append(carTypeId).append(", ");
+        Long carDriverId = object.getCarDriver() == null ? null : object.getCarDriver().getId();
+        stringBuilder.append(carDriverId).append(", '");
         stringBuilder.append(object.getModel()).append("', '");
         stringBuilder.append(object.getNumber()).append("', ");
         stringBuilder.append(object.isAvailable()).append(", '");
@@ -34,15 +36,17 @@ public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
     }
 
     @Override
-    protected String getReadQuery(String conditions) {
+    public String getReadQuery(String conditions) {
         return "SELECT * FROM car WHERE 1 = 1" + conditions;
     }
 
     @Override
-    protected String getUpdateQuery(Car object) {
+    public String getUpdateQuery(Car object) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("UPDATE car SET type_id = ").append(object.getCarType().getId());
-        stringBuilder.append(", driver_id = ").append(object.getCarDriver().getId());
+        Long carTypeId = object.getCarType() == null ? null : object.getCarType().getId();
+        stringBuilder.append("UPDATE car SET type_id = ").append(carTypeId);
+        Long carDriverId = object.getCarDriver() == null ? null : object.getCarDriver().getId();
+        stringBuilder.append(", driver_id = ").append(carDriverId);
         stringBuilder.append(", model = '").append(object.getModel());
         stringBuilder.append("', number = '").append(object.getNumber());
         stringBuilder.append("', available = ").append(object.isAvailable());
@@ -52,7 +56,7 @@ public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
     }
 
     @Override
-    protected String getDeleteQuery(Car object) {
+    public String getDeleteQuery(Car object) {
         return "DELETE FROM car WHERE id = " + object.getId();
     }
 
@@ -60,12 +64,12 @@ public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
     protected Car convertRs(ResultSet rs) {
         Car car = null;
         try {
-            int id = rs.getInt("id");
+            long id = rs.getLong("id");
             CarTypeDAO carTypeDAO = FactoryDAO.getCarTypeDAO();
             CarDriverDAO carDriverDAO = FactoryDAO.getCarDriverDAO();
-            Integer type_id = rs.getInt("type_id");
+            Long type_id = rs.getLong("type_id");
             CarType carType = carTypeDAO.getById(type_id);
-            Integer driver_id = rs.getInt("driver_id");
+            Long driver_id = rs.getLong("driver_id");
             CarDriver carDriver = carDriverDAO.getById(driver_id);
             String model = rs.getString("model");
             String number = rs.getString("number");
@@ -80,7 +84,7 @@ public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
 
     @Override
     public List<Car> findAvailableCarByType(CarType carType) {
-        return read(Arrays.asList("type_id = " + carType.getId(), "available = true"));
+        return carType == null ? null : read(Arrays.asList("type_id = " + carType.getId(), "available = true"));
     }
 
     @Override

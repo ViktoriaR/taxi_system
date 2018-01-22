@@ -19,11 +19,11 @@
     <form action="/" method="post">
         <%--From input field with value--%>
         <label for="fromAddress">From:</label>
-        <input id="fromAddress" type="text" name="fromAddress"/><br>
+        <input id="fromAddress" type="text" name="fromAddress" value="${from}"/><br>
 
         <%--To input field with value--%>
         <label for="toAddress">To:</label>
-        <input id="toAddress" type="text" name="toAddress"/><br>
+        <input id="toAddress" type="text" name="toAddress" value="${to}"/><br>
 
         <%--To input field with value--%>
         <label for="carType">Choose car type:</label>
@@ -38,6 +38,5 @@
 
         <input type="submit" value="Get price"/>
     </form>
-
 </body>
 </html>

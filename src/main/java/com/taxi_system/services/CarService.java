@@ -17,7 +17,9 @@ public class CarService {
         carDAO = FactoryDAO.getCarDAO();
     }
 
-    public List<Car> findAvailableCars(CarType carType) {
+    public List<Car> findAvailableCars(String carTypeString) {
+        CarTypeService carTypeService = new CarTypeService();
+        CarType carType = carTypeService.getCarTypeByName(carTypeString);
         return carDAO.findAvailableCarByType(carType);
     }
 

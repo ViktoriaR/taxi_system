@@ -15,7 +15,7 @@ import java.util.List;
 public class CarTypeDAOImpl extends AbstractCRUD<CarType> implements CarTypeDAO {
 
     @Override
-    protected String getCreateQuery(CarType object) {
+    public String getCreateQuery(CarType object) {
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO car_type(type, description, coefficient) VALUES('");
         stringBuilder.append(object.getType()).append("', '");
         stringBuilder.append(object.getDescription()).append("', '");
@@ -24,12 +24,12 @@ public class CarTypeDAOImpl extends AbstractCRUD<CarType> implements CarTypeDAO 
     }
 
     @Override
-    protected String getReadQuery(String conditions) {
+    public String getReadQuery(String conditions) {
         return "SELECT * FROM car_type WHERE 1 = 1" + conditions;
     }
 
     @Override
-    protected String getUpdateQuery(CarType object) {
+    public String getUpdateQuery(CarType object) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("UPDATE car_type SET type = '").append(object.getType());
         stringBuilder.append("', description = '").append(object.getDescription());
@@ -39,7 +39,7 @@ public class CarTypeDAOImpl extends AbstractCRUD<CarType> implements CarTypeDAO 
     }
 
     @Override
-    protected String getDeleteQuery(CarType object) {
+    public String getDeleteQuery(CarType object) {
         return "DELETE FROM car_type WHERE id = " + object.getId();
     }
 
@@ -47,7 +47,7 @@ public class CarTypeDAOImpl extends AbstractCRUD<CarType> implements CarTypeDAO 
     protected CarType convertRs(ResultSet rs) {
         CarType carType = null;
         try {
-            int id = rs.getInt("id");
+            long id = rs.getLong("id");
             String type = rs.getString("type");
             String description = rs.getString("description");
             Float coefficient = rs.getFloat("coefficient");

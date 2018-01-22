@@ -11,5 +11,5 @@ import java.util.List;
 public interface CarDAO {
     List<Car> findAvailableCarByType(CarType carType);
     boolean changeCarStatus(Car car, boolean available);
-    Car getById(int id);
+    Car getById(long id);
 }

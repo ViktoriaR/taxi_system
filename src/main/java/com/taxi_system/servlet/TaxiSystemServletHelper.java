@@ -22,6 +22,7 @@ public class TaxiSystemServletHelper {
         commands.put("logout", new LogoutCommand());
         commands.put("orderForm", new OrderFormCommand());
         commands.put("getPrice", new GetPriceCommand());
+        commands.put("processOrder", new ProcessOrderCommand());
     }
 
     public Command getCommand(HttpServletRequest request) {

@@ -14,7 +14,7 @@ import java.util.List;
 public class StockDAOImpl extends AbstractCRUD<Stock> implements StockDAO {
 
     @Override
-    protected String getCreateQuery(Stock object) {
+    public String getCreateQuery(Stock object) {
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO stock(percent, start_date, end_date, description) VALUES('");
         stringBuilder.append(object.getPercent()).append("', '");
         stringBuilder.append(object.getStartDate()).append("', '");
@@ -24,12 +24,12 @@ public class StockDAOImpl extends AbstractCRUD<Stock> implements StockDAO {
     }
 
     @Override
-    protected String getReadQuery(String conditions) {
+    public String getReadQuery(String conditions) {
         return "SELECT * FROM stock WHERE 1 = 1" + conditions;
     }
 
     @Override
-    protected String getUpdateQuery(Stock object) {
+    public String getUpdateQuery(Stock object) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("UPDATE stock SET percent = '").append(object.getPercent());
         stringBuilder.append("', start_date = '").append(object.getStartDate());
@@ -40,7 +40,7 @@ public class StockDAOImpl extends AbstractCRUD<Stock> implements StockDAO {
     }
 
     @Override
-    protected String getDeleteQuery(Stock object) {
+    public String getDeleteQuery(Stock object) {
         return "DELETE FROM stock WHERE id = " + object.getId();
     }
 
@@ -48,7 +48,7 @@ public class StockDAOImpl extends AbstractCRUD<Stock> implements StockDAO {
     protected Stock convertRs(ResultSet rs) {
         Stock stock = null;
         try {
-            int id = rs.getInt("id");
+            long id = rs.getLong("id");
             byte percent = rs.getByte("percent");
             Timestamp startDate = rs.getTimestamp("start_date");
             Timestamp endDate = rs.getTimestamp("end_date");

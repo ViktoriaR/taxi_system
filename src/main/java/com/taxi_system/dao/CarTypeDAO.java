@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface CarTypeDAO {
     List<CarType> getCarTypes();
-    CarType getById(int id);
+    CarType getById(long id);
     CarType getByName(String type);
 }

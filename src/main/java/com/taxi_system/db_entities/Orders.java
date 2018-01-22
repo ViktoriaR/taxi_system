@@ -7,31 +7,31 @@ import java.sql.Timestamp;
  * Created by Victoria on 23.12.2017.
  */
 public class Orders implements Serializable {
-    private int id;
+    private long id;
     private Client client;
     private Car car;
     private Discount discount;
     private Stock stock;
-    private Timestamp arrivalTime;
     private String fromAddress;
     private String toAddress;
     private float distance;
     private float price;
+    private String carType;
 
     public Orders() {
     }
 
-    public Orders(Client client, String fromAddress, String toAddress) {
-        this.client = client;
+    public Orders(String fromAddress, String toAddress, String carType) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
+        this.carType = carType;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public Orders setId(int id) {
+    public Orders setId(long id) {
         this.id = id;
         return this;
     }
@@ -72,15 +72,6 @@ public class Orders implements Serializable {
         return this;
     }
 
-    public Timestamp getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public Orders setArrivalTime(Timestamp arrivalTime) {
-        this.arrivalTime = arrivalTime;
-        return this;
-    }
-
     public String getFromAddress() {
         return fromAddress;
     }
@@ -94,9 +85,8 @@ public class Orders implements Serializable {
         return toAddress;
     }
 
-    public Orders setToAddress(String toAddress) {
+    public void setToAddress(String toAddress) {
         this.toAddress = toAddress;
-        return this;
     }
 
     public float getDistance() {
@@ -120,6 +110,14 @@ public class Orders implements Serializable {
     public float getAmount() {
         float discount = getDiscount() != null ? getDiscount().getPercent() : 0;
         float stock = getStock() != null ? getStock().getPercent() : 0;
-        return price - price * discount - price * stock;
+        return price - price * discount / 100 - price * stock / 100;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 }

@@ -6,11 +6,11 @@ import java.io.Serializable;
  * Created by Victoria on 22.12.2017.
  */
 public class Client implements Serializable {
-    private int clientId;
+    private long clientId;
     private String login;
     private String password;
     private String name;
-    private long sum;
+    private float sum;
 
     public Client(String login, String password, String name) {
         this.login = login;
@@ -19,7 +19,7 @@ public class Client implements Serializable {
     }
 
 
-    public Client(int clientId, String login, String password, String name, long sum) {
+    public Client(long clientId, String login, String password, String name, float sum) {
         this.clientId = clientId;
         this.login = login;
         this.password = password;
@@ -27,7 +27,7 @@ public class Client implements Serializable {
         this.sum = sum;
     }
 
-    public int getId() {
+    public long getId() {
         return clientId;
     }
 
@@ -47,13 +47,8 @@ public class Client implements Serializable {
         return password;
     }
 
-    public boolean changePassword(String oldPassword, String newPassword) {
-        boolean result = false;
-        if (this.password.equals(oldPassword)) {
-            this.password = newPassword;
-            result = true;
-        }
-        return result;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -64,11 +59,11 @@ public class Client implements Serializable {
         this.name = name;
     }
 
-    public long getSum() {
+    public float getSum() {
         return sum;
     }
 
-    public void setSum(long sum) {
+    public void setSum(float sum) {
         this.sum = sum;
     }
 

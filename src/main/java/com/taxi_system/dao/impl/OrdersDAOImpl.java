@@ -11,16 +11,19 @@ import java.sql.Timestamp;
 /**
  * Created by Victoria on 25.12.2017.
  */
-public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO{
+public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO {
 
     @Override
-    protected String getCreateQuery(Orders object) {
-        StringBuilder stringBuilder = new StringBuilder("INSERT INTO orders(client_id, car_id, discount_id, stock_id, arrival_time, from_address, to_address, setDistance, setPrice) VALUES('");
-        stringBuilder.append(object.getClient().getId()).append("', '");
-        stringBuilder.append(object.getCar().getId()).append("', '");
-        stringBuilder.append(object.getDiscount().getId()).append("', '");
-        stringBuilder.append(object.getStock().getId()).append("', '");
-        stringBuilder.append(object.getArrivalTime()).append("', '");
+    public String getCreateQuery(Orders object) {
+        StringBuilder stringBuilder = new StringBuilder("INSERT INTO orders(client_id, car_id, discount_id, stock_id, from_address, to_address, distance, price) VALUES(");
+        Long clientId = object.getClient() == null ? null : object.getClient().getId();
+        stringBuilder.append(clientId).append(", ");
+        Long carId = object.getCar() == null ? null : object.getCar().getId();
+        stringBuilder.append(carId).append(", ");
+        Long discountId = object.getDiscount() == null ? null : object.getDiscount().getId();
+        stringBuilder.append(discountId).append(", ");
+        Long stockId = object.getStock() == null ? null : object.getStock().getId();
+        stringBuilder.append(stockId).append(", '");
         stringBuilder.append(object.getFromAddress()).append("', '");
         stringBuilder.append(object.getToAddress()).append("', '");
         stringBuilder.append(object.getDistance()).append("', '");
@@ -29,19 +32,22 @@ public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO{
     }
 
     @Override
-    protected String getReadQuery(String conditions) {
+    public String getReadQuery(String conditions) {
         return "SELECT * FROM orders WHERE 1 = 1" + conditions;
     }
 
     @Override
-    protected String getUpdateQuery(Orders object) {
+    public String getUpdateQuery(Orders object) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("UPDATE orders SET client_id = '").append(object.getClient().getId());
-        stringBuilder.append("', car_id = '").append(object.getCar().getId());
-        stringBuilder.append("', discount_id = '").append(object.getDiscount().getId());
-        stringBuilder.append("', stock_id = '").append(object.getStock().getId());
-        stringBuilder.append("', arrival_time = '").append(object.getArrivalTime());
-        stringBuilder.append("', from_address = '").append(object.getFromAddress());
+        Long clientId = object.getClient() == null ? null : object.getClient().getId();
+        stringBuilder.append("UPDATE orders SET client_id = ").append(clientId);
+        Long carId = object.getCar() == null ? null : object.getCar().getId();
+        stringBuilder.append(", car_id = ").append(carId);
+        Long discountId = object.getDiscount() == null ? null : object.getDiscount().getId();
+        stringBuilder.append(", discount_id = ").append(discountId);
+        Long stockId = object.getStock() == null ? null : object.getStock().getId();
+        stringBuilder.append(", stock_id = ").append(stockId);
+        stringBuilder.append(", from_address = '").append(object.getFromAddress());
         stringBuilder.append("', to_address = '").append(object.getToAddress());
         stringBuilder.append("', setDistance = '").append(object.getDistance());
         stringBuilder.append("', setPrice = '").append(object.getPrice());
@@ -50,7 +56,7 @@ public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO{
     }
 
     @Override
-    protected String getDeleteQuery(Orders object) {
+    public String getDeleteQuery(Orders object) {
         return "DELETE FROM orders WHERE id = " + object.getId();
     }
 
@@ -62,23 +68,22 @@ public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO{
             CarDAO carDAO = FactoryDAO.getCarDAO();
             DiscountDAO discountDAO = FactoryDAO.getDiscountDAO();
             StockDAO stockDAO = FactoryDAO.getStockDAO();
-            int id = rs.getInt("id");
-            int clientId = rs.getInt("client_id");
+            long id = rs.getLong("id");
+            long clientId = rs.getLong("client_id");
             Client client = clientDAO.getById(clientId);
-            int carId = rs.getInt("car_id");
+            long carId = rs.getLong("car_id");
             Car car = carDAO.getById(carId);
-            int discountId = rs.getInt("discount_id");
+            long discountId = rs.getLong("discount_id");
             Discount discount = discountDAO.getById(discountId);
-            int stockId = rs.getInt("stock_id");
+            long stockId = rs.getLong("stock_id");
             Stock stock = stockDAO.getById(stockId);
-            Timestamp arrivalTime = rs.getTimestamp("arrival_time");
             String fromAddress = rs.getString("from_address");
             String toAddress = rs.getString("to_address");
             float distance = rs.getFloat("setDistance");
             float price = rs.getFloat("setPrice");
-            orders = new Orders(client, fromAddress, toAddress);
-            orders.setId(id).setCar(car).setDiscount(discount).setStock(stock);
-            orders.setArrivalTime(arrivalTime).setDistance(distance).setPrice(price);
+            orders = new Orders(fromAddress, toAddress, null);
+            orders.setClient(client).setId(id).setCar(car).setDiscount(discount).setStock(stock);
+            orders.setDistance(distance).setPrice(price);
         } catch (SQLException e) {
             e.printStackTrace();
         }

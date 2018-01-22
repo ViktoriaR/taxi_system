@@ -16,7 +16,7 @@ import java.util.List;
 public class ClientDAOImpl extends AbstractCRUD<Client> implements ClientDAO {
 
     @Override
-    protected String getCreateQuery(Client object) {
+    public String getCreateQuery(Client object) {
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO client(login, password, name, sum) VALUES('");
         stringBuilder.append(object.getLogin()).append("', '");
         stringBuilder.append(object.getPassword()).append("', '");
@@ -26,12 +26,12 @@ public class ClientDAOImpl extends AbstractCRUD<Client> implements ClientDAO {
     }
 
     @Override
-    protected String getReadQuery(String conditions) {
+    public String getReadQuery(String conditions) {
         return "SELECT * FROM client WHERE 1 = 1" + conditions;
     }
 
     @Override
-    protected String getUpdateQuery(Client object) {
+    public String getUpdateQuery(Client object) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("UPDATE client SET login = '").append(object.getLogin());
         stringBuilder.append("', password = '").append(object.getPassword());
@@ -42,7 +42,7 @@ public class ClientDAOImpl extends AbstractCRUD<Client> implements ClientDAO {
     }
 
     @Override
-    protected String getDeleteQuery(Client object) {
+    public String getDeleteQuery(Client object) {
         return "DELETE FROM client WHERE login = " + object.getLogin();
     }
 
@@ -50,11 +50,11 @@ public class ClientDAOImpl extends AbstractCRUD<Client> implements ClientDAO {
     protected Client convertRs(ResultSet rs) {
         Client client = null;
         try {
-            int id = rs.getInt("id");
+            long id = rs.getLong("id");
             String login = rs.getString("login");
             String password = rs.getString("password");
             String name = rs.getString("name");
-            long sum = rs.getLong("sum");
+            float sum = rs.getFloat("sum");
             client = new Client(id, login, password, name, sum);
         } catch (SQLException e) {
             e.printStackTrace();

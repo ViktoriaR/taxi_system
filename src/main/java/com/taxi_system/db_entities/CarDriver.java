@@ -6,17 +6,17 @@ import java.io.Serializable;
  * Created by Victoria on 22.12.2017.
  */
 public class CarDriver implements Serializable {
-    protected int id;
-    protected String name;
-    protected String phoneNumber;
+    private long id;
+    private String name;
+    private String phoneNumber;
 
-    public CarDriver(int id, String name, String phoneNumber) {
+    public CarDriver(long id, String name, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -49,7 +49,7 @@ public class CarDriver implements Serializable {
 
     @Override
     public int hashCode() {
-        return id;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override

@@ -20,5 +20,5 @@ public interface ClientDAO {
 
     int delete(Client client);
 
-    Client getById(int id);
+    Client getById(long id);
 }

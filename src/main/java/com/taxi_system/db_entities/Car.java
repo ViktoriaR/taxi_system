@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Victoria on 23.12.2017.
  */
 public class Car implements Serializable {
-    private int id;
+    private long id;
     private CarType carType;
     private CarDriver carDriver;
     private String model;
@@ -14,7 +14,7 @@ public class Car implements Serializable {
     private boolean available;
     private String location;
 
-    public Car(int id, CarType carType, CarDriver carDriver, String model, String number, boolean available, String location) {
+    public Car(long id, CarType carType, CarDriver carDriver, String model, String number, boolean available, String location) {
         this.id = id;
         this.carType = carType;
         this.carDriver = carDriver;
@@ -24,7 +24,7 @@ public class Car implements Serializable {
         this.location = location;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

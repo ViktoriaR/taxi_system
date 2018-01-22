@@ -15,7 +15,7 @@ import java.util.List;
 public class CarDriverDAOImpl extends AbstractCRUD<CarDriver> implements CarDriverDAO {
 
     @Override
-    protected String getCreateQuery(CarDriver object) {
+    public String getCreateQuery(CarDriver object) {
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO car_driver(name, phone_number) VALUES('");
         stringBuilder.append(object.getName()).append("', '");
         stringBuilder.append(object.getPhoneNumber()).append("')");
@@ -23,12 +23,12 @@ public class CarDriverDAOImpl extends AbstractCRUD<CarDriver> implements CarDriv
     }
 
     @Override
-    protected String getReadQuery(String conditions) {
+    public String getReadQuery(String conditions) {
         return "SELECT * FROM car_driver WHERE 1 = 1" + conditions;
     }
 
     @Override
-    protected String getUpdateQuery(CarDriver object) {
+    public String getUpdateQuery(CarDriver object) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("UPDATE car_driver SET name = '").append(object.getName());
         stringBuilder.append("', phone_number = '").append(object.getPhoneNumber());
@@ -37,7 +37,7 @@ public class CarDriverDAOImpl extends AbstractCRUD<CarDriver> implements CarDriv
     }
 
     @Override
-    protected String getDeleteQuery(CarDriver object) {
+    public String getDeleteQuery(CarDriver object) {
         return "DELETE FROM car_driver WHERE id = " + object.getId();
     }
 
@@ -45,7 +45,7 @@ public class CarDriverDAOImpl extends AbstractCRUD<CarDriver> implements CarDriv
     protected CarDriver convertRs(ResultSet rs) {
         CarDriver carDriver = null;
         try {
-            int id = rs.getInt("id");
+            long id = rs.getLong("id");
             String name = rs.getString("name");
             String phoneNumber = rs.getString("phone_number");
             carDriver = new CarDriver(id, name, phoneNumber);

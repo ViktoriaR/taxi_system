@@ -9,5 +9,5 @@ import java.sql.Timestamp;
  */
 public interface StockDAO {
     Stock getStockByTime(Timestamp time);
-    Stock getById(int id);
+    Stock getById(long id);
 }

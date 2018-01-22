@@ -6,19 +6,19 @@ import java.io.Serializable;
  * Created by Victoria on 22.12.2017.
  */
 public class CarType implements Serializable {
-    protected int id;
-    protected String type;
-    protected String description;
-    protected float coefficient;
+    private long id;
+    private String type;
+    private String description;
+    private float coefficient;
 
-    public CarType(int id, String type, String description, float coefficient) {
+    public CarType(long id, String type, String description, float coefficient) {
         this.id = id;
         this.type = type;
         this.description = description;
         this.coefficient = coefficient;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

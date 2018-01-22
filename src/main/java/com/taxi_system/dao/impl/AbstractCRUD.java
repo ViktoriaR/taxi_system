@@ -22,39 +22,13 @@ public abstract class AbstractCRUD<T> {
     public List<T> read(List<String> conditions) {
         List<T> result = new ArrayList<>();
         ConnectionPool pool = ConnectionPool.getInstance();
-        try {
-            Connection cn = null;
-            try {
-                cn = pool.getConnection();
-                PreparedStatement st = null;
-                try {
-                    st = cn.prepareStatement(getReadQuery(conditionsToString(conditions)));
-                    ResultSet rs = null;
-                    try {
-                        rs = st.executeQuery();
-                        while (rs.next()) {
-                            result.add(convertRs(rs));
-                        }
-                    } catch (SQLException e) {
-                      e.printStackTrace();
-                    } finally {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                    }
-                } finally {
-                    if (st != null) {
-                        st.close();
-                    }
-                }
-            } finally {
-                if (cn != null) {
-                    cn.close();
-                }
-            }
+
+        try (Connection cn = pool.getConnection()) {
+            result = doRead(cn, getReadQuery(conditionsToString(conditions)));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return result;
     }
 
@@ -66,29 +40,30 @@ public abstract class AbstractCRUD<T> {
         return executeCommand(getDeleteQuery(object));
     }
 
-    private int executeCommand (String query) {
+    private int executeCommand(String query) {
         int result = 0;
         ConnectionPool pool = ConnectionPool.getInstance();
-        try {
-            Connection cn = null;
-            try {
-                cn = pool.getConnection();
-                PreparedStatement st = null;
-                try {
-                    st = cn.prepareStatement(query);
-                    result = st.executeUpdate();
-                } finally {
-                    if (st != null) {
-                        st.close();
-                    }
-                }
-            } finally {
-                if (cn != null) {
-                    cn.close();
-                }
-            }
+
+        try (Connection cn = pool.getConnection()) {
+            result = doExecute(cn, query);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public int doExecute(Connection cn, String query) throws SQLException {
+        PreparedStatement st = cn.prepareStatement(query);
+        return st.executeUpdate();
+    }
+
+    public List<T> doRead(Connection cn, String query) throws SQLException {
+        List<T> result = new ArrayList<>();
+        PreparedStatement st = cn.prepareStatement(query);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            result.add(convertRs(rs));
         }
         return result;
     }
@@ -102,14 +77,18 @@ public abstract class AbstractCRUD<T> {
         return stringBuilder.toString();
     }
 
-    public T getById(int id) {
+    public T getById(long id) {
         List<T> list = read(Arrays.asList("id =  " + id));
         return list.isEmpty() ? null : list.get(0);
     }
 
-    protected abstract String getCreateQuery(T object);
-    protected abstract String getReadQuery(String conditions);
-    protected abstract String getUpdateQuery(T object);
-    protected abstract String getDeleteQuery(T object);
+    public abstract String getCreateQuery(T object);
+
+    public abstract String getReadQuery(String conditions);
+
+    public abstract String getUpdateQuery(T object);
+
+    public abstract String getDeleteQuery(T object);
+
     protected abstract T convertRs(ResultSet rs);
 }

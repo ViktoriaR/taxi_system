@@ -6,13 +6,13 @@ import java.io.Serializable;
  * Created by Victoria on 23.12.2017.
  */
 public class Discount implements Serializable {
-    private int id;
+    private long id;
     private byte percent;
-    private long bottomSum;
-    private long upperSum;
+    private float bottomSum;
+    private float upperSum;
     private String description;
 
-    public Discount(int id, byte percent, long bottomSum, long upperSum, String description) {
+    public Discount(long id, byte percent, long bottomSum, long upperSum, String description) {
         this.id = id;
         this.percent = percent;
         this.bottomSum = bottomSum;
@@ -20,7 +20,7 @@ public class Discount implements Serializable {
         this.description = description;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -28,11 +28,11 @@ public class Discount implements Serializable {
         return percent;
     }
 
-    public long getBottomSum() {
+    public float getBottomSum() {
         return bottomSum;
     }
 
-    public long getUpperSum() {
+    public float getUpperSum() {
         return upperSum;
     }
 

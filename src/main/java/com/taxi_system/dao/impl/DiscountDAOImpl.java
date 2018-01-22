@@ -15,7 +15,7 @@ import java.util.List;
 public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountDAO{
 
     @Override
-    protected String getCreateQuery(Discount object) {
+    public String getCreateQuery(Discount object) {
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO discount(percent, bottom_sum, upper_sum, description) VALUES('");
         stringBuilder.append(object.getPercent()).append("', '");
         stringBuilder.append(object.getBottomSum()).append("', '");
@@ -25,12 +25,12 @@ public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountD
     }
 
     @Override
-    protected String getReadQuery(String conditions) {
+    public String getReadQuery(String conditions) {
         return "SELECT * FROM discount WHERE 1 = 1" + conditions;
     }
 
     @Override
-    protected String getUpdateQuery(Discount object) {
+    public String getUpdateQuery(Discount object) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("UPDATE discount SET percent = '").append(object.getPercent());
         stringBuilder.append("', bottom_sum = '").append(object.getBottomSum());
@@ -41,7 +41,7 @@ public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountD
     }
 
     @Override
-    protected String getDeleteQuery(Discount object) {
+    public String getDeleteQuery(Discount object) {
         return "DELETE FROM discount WHERE id = " + object.getId();
     }
 
@@ -49,7 +49,7 @@ public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountD
     protected Discount convertRs(ResultSet rs) {
         Discount discount = null;
         try {
-            int id = rs.getInt("id");
+            long id = rs.getLong("id");
             byte percent = rs.getByte("percent");
             long bottomSum = rs.getLong("bottom_sum");
             long upperSum = rs.getLong("upper_sum");
@@ -62,8 +62,8 @@ public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountD
     }
 
     @Override
-    public Discount getDiscountOnSum(long sum) {
-        List<Discount> list = read(Arrays.asList("bottom_sum <= " + sum, "upper_sum >= " + sum));
+    public Discount getDiscountOnSum(float sum) {
+        List<Discount> list = read(Arrays.asList("bottom_sum <= " + sum, "upper_sum > " + sum));
         return list.isEmpty() ? null : list.get(0);
     }
 }

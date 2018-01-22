@@ -7,13 +7,13 @@ import java.sql.Timestamp;
  * Created by Victoria on 23.12.2017.
  */
 public class Stock implements Serializable {
-    private int id;
+    private long id;
     private byte percent;
     private Timestamp startDate;
     private Timestamp endDate;
     private String description;
 
-    public Stock(int id, byte percent, Timestamp startDate, Timestamp endDate, String description) {
+    public Stock(long id, byte percent, Timestamp startDate, Timestamp endDate, String description) {
         this.id = id;
         this.percent = percent;
         this.startDate = startDate;
@@ -21,7 +21,7 @@ public class Stock implements Serializable {
         this.description = description;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
