@@ -17,6 +17,7 @@ public class Orders implements Serializable {
     private float distance;
     private float price;
     private String carType;
+    private Timestamp expectedBoardingTime;
 
     public Orders() {
     }
@@ -119,5 +120,13 @@ public class Orders implements Serializable {
 
     public void setCarType(String carType) {
         this.carType = carType;
+    }
+
+    public Timestamp getExpectedBoardingTime() {
+        return expectedBoardingTime;
+    }
+
+    public void setExpectedBoardingTime(Timestamp expectedBoardingTime) {
+        this.expectedBoardingTime = expectedBoardingTime;
     }
 }

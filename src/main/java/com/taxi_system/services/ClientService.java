@@ -4,6 +4,9 @@ import com.taxi_system.dao.ClientDAO;
 import com.taxi_system.dao.factory.FactoryDAO;
 import com.taxi_system.db_entities.Client;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * Created by Victoria on 03.01.2018.
  */
@@ -34,5 +37,9 @@ public class ClientService {
 
     public Client getClient(String login) {
         return clientDao.findByLogin(login);
+    }
+
+    public void updateClientInDB(Connection connection, Client client) throws SQLException {
+        clientDao.updateInDB(connection, client);
     }
 }

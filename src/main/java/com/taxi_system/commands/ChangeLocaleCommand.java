@@ -6,14 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Victoria on 11.01.2018.
+ * Created by Victoria on 24.01.2018.
  */
-public class LogoutCommand implements Command {
+public class ChangeLocaleCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().removeAttribute("username");
-        request.getSession().removeAttribute("order");
-        request.getSession().removeAttribute("savedOrder");
-        return "/index.jsp";
+        String locale = request.getParameter("locale");
+        request.getSession().setAttribute("locale", locale);
+        String page = request.getParameter("page");
+        return page;
     }
 }

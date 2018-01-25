@@ -4,6 +4,7 @@ import com.taxi_system.dao.ClientDAO;
 import com.taxi_system.db_entities.Client;
 import javafx.util.Pair;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,5 +78,10 @@ public class ClientDAOImpl extends AbstractCRUD<Client> implements ClientDAO {
     @Override
     public void add(String login, String password, String name) {
         create(new Client(login, password, name));
+    }
+
+    @Override
+    public void updateInDB(Connection connection, Client client) throws SQLException {
+        doExecute(connection, getUpdateQuery(client));
     }
 }

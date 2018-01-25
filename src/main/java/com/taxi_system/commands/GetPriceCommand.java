@@ -27,8 +27,6 @@ public class GetPriceCommand implements Command {
 
         if (StringUtils.isBlank(fromAddress) || StringUtils.isBlank(toAddress) || fromAddress.equals("From?") || toAddress.equals("To?")) {
             request.setAttribute("failedMessage", "Enter from and to address");
-            CarTypeService carTypeService = new CarTypeService();
-            request.setAttribute("carTypes", carTypeService.getCarTypes());
             page = "/jsp/orderForm.jsp";
         } else {
             Orders order = (Orders) request.getSession().getAttribute("order");

@@ -9,6 +9,7 @@ import com.taxi_system.db_entities.CarDriver;
 import com.taxi_system.db_entities.CarType;
 import javafx.util.Pair;
 
+import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -97,5 +98,10 @@ public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
         if (carInDB.isAvailable() == car.isAvailable()) return false;
         update(car);
         return true;
+    }
+
+    @Override
+    public void updateInDB(Connection connection, Car car) throws SQLException {
+        doExecute(connection, getUpdateQuery(car));
     }
 }

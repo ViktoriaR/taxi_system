@@ -24,45 +24,7 @@ public class OrdersService {
         ordersDAO = FactoryDAO.getOrdersDAO();
     }
 
-    public Orders processOrder(Orders order) throws Exception {
-        CarService carService = new CarService();
-        List<Car> cars = carService.findAvailableCars(order.getCarType());
-        if (cars.isEmpty()) throw new Exception("no available car, try again later");
-        order.setCar(cars.get(0));
-
-        Connection connection = null;
-        try {
-            try {
-                connection = ConnectionPool.getInstance().getConnection();
-                connection.setAutoCommit(false);
-
-                OrdersDAOImpl ordersDAOImpl = FactoryDAO.getOrdersDAO();
-                ordersDAOImpl.doExecute(connection, ordersDAOImpl.getCreateQuery(order));
-
-                CarDAOImpl carDAOImpl = FactoryDAO.getCarDAO();
-                order.getCar().setAvailable(false);
-                carDAOImpl.doExecute(connection, carDAOImpl.getUpdateQuery(order.getCar()));
-
-                ClientDAOImpl clientDAOImpl = FactoryDAO.getClientDAO();
-                Client client = order.getClient();
-                client.setSum(client.getSum() + order.getPrice());
-                clientDAOImpl.doExecute(connection, clientDAOImpl.getUpdateQuery(client));
-
-                connection.commit();
-            } catch (SQLException e) {
-                if (connection != null) {
-                    connection.rollback();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.setAutoCommit(true);
-                    connection.close();
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return order;
+    public void createOrderInDB(Connection connection, Orders order) throws SQLException {
+        ordersDAO.saveToDB(connection, order);
     }
 }

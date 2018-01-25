@@ -4,6 +4,7 @@ import com.taxi_system.dao.*;
 import com.taxi_system.dao.factory.FactoryDAO;
 import com.taxi_system.db_entities.*;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -88,5 +89,10 @@ public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO {
             e.printStackTrace();
         }
         return orders;
+    }
+
+    @Override
+    public void saveToDB(Connection connection, Orders order) throws SQLException {
+        doExecute(connection, getCreateQuery(order));
     }
 }

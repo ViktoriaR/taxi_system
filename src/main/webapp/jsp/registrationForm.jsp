@@ -17,7 +17,10 @@
         <h2>${registrationFailedMessage}</h2>
     </c:if>
 
-    <form action="/" method="post">
+    <c:set var="page" value="/jsp/registrationForm.jsp" scope="request"/>
+    <c:import url="/jsp/header.jsp" />
+
+    <form action="${pageContext.request.contextPath}/" method="post">
         <%--Login input field with value and predifined attribute login from command--%>
         <label for="login">Login:</label>
         <input id="login" type="text" name="login" value="${login}"/><br>

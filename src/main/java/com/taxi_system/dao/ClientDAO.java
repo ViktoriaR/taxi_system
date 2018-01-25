@@ -3,6 +3,8 @@ package com.taxi_system.dao;
 import com.taxi_system.db_entities.Client;
 import javafx.util.Pair;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,4 +23,6 @@ public interface ClientDAO {
     int delete(Client client);
 
     Client getById(long id);
+
+    void updateInDB(Connection connection, Client order) throws SQLException;
 }

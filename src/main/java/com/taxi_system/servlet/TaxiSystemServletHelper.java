@@ -23,6 +23,7 @@ public class TaxiSystemServletHelper {
         commands.put("orderForm", new OrderFormCommand());
         commands.put("getPrice", new GetPriceCommand());
         commands.put("processOrder", new ProcessOrderCommand());
+        commands.put("changeLocale", new ChangeLocaleCommand());
     }
 
     public Command getCommand(HttpServletRequest request) {

@@ -13,6 +13,6 @@ public class DistanceService {
 
     public Timestamp calculateTime(String fromAddress, String toAddress) {
         float distance = calculateDistance(fromAddress, toAddress);
-        return new Timestamp(System.currentTimeMillis() + (long)(distance*72000));
+        return new Timestamp(System.currentTimeMillis() + (long)distance*72000);
     }
 }
