@@ -7,23 +7,27 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "details." >
 <html>
 <head>
-    <title>Taxi System - Details Page</title>
+    <title><fmt:message key="title"/></title>
 </head>
 <body>
-<c:set var="page" value="/jsp/details.jsp" scope="request"/>
-<c:import url="/jsp/header.jsp" />
+    <c:set var="page" value="/jsp/details.jsp" scope="request"/>
+    <c:import url="/jsp/header.jsp" />
 
-<h2>From address: ${savedOrder.fromAddress}</h2>
-<h2>To address: ${savedOrder.toAddress}</h2>
-<h2>Car type: ${savedOrder.carType}</h2>
-<h2>Distance: ${savedOrder.distance}</h2>
-<h2>Amount: ${savedOrder.amount}</h2>
-<h2>Car: model ${savedOrder.car.model}, number ${savedOrder.car.number}</h2>
-<h2>Time of car arrival: ${savedOrder.expectedBoardingTime}</h2>
+    <fmt:message key="from"/>: ${savedOrder.fromAddress}<br>
+    <fmt:message key="to"/>: ${savedOrder.toAddress}<br>
+    <fmt:message key="carType"/>: ${savedOrder.carType}<br>
+    <fmt:message key="distance"/>: <fmt:formatNumber value="${savedOrder.distance}"/><br>
+    <fmt:message key="amount"/>: <fmt:formatNumber value="${savedOrder.amount}" type="currency"/><br>
+    <fmt:message key="car"/>: <fmt:message key="model"/> ${savedOrder.car.model}, <fmt:message key="number"/> ${savedOrder.car.number}<br>
+    <fmt:message key="time"/>:  <fmt:formatDate value="${savedOrder.expectedBoardingTime}" type="time" timeStyle="short"/><br>
 
-<a href="${pageContext.request.contextPath}">To main page</a><br>
+    <a href="${pageContext.request.contextPath}"><fmt:message key="index"/></a><br>
 
 </body>
 </html>
+</fmt:bundle>

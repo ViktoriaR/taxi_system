@@ -49,7 +49,7 @@ public class StockDAOImpl extends AbstractCRUD<Stock> implements StockDAO {
         Stock stock = null;
         try {
             long id = rs.getLong("id");
-            byte percent = rs.getByte("percent");
+            float percent = rs.getFloat("percent");
             Timestamp startDate = rs.getTimestamp("start_date");
             Timestamp endDate = rs.getTimestamp("end_date");
             String description = rs.getString("description");

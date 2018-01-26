@@ -50,7 +50,7 @@ public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountD
         Discount discount = null;
         try {
             long id = rs.getLong("id");
-            byte percent = rs.getByte("percent");
+            float percent = rs.getFloat("percent");
             long bottomSum = rs.getLong("bottom_sum");
             long upperSum = rs.getLong("upper_sum");
             String description = rs.getString("description");

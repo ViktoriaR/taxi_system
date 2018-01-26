@@ -8,12 +8,12 @@ import java.sql.Timestamp;
  */
 public class Stock implements Serializable {
     private long id;
-    private byte percent;
+    private float percent;
     private Timestamp startDate;
     private Timestamp endDate;
     private String description;
 
-    public Stock(long id, byte percent, Timestamp startDate, Timestamp endDate, String description) {
+    public Stock(long id, float percent, Timestamp startDate, Timestamp endDate, String description) {
         this.id = id;
         this.percent = percent;
         this.startDate = startDate;
@@ -25,7 +25,7 @@ public class Stock implements Serializable {
         return id;
     }
 
-    public byte getPercent() {
+    public float getPercent() {
         return percent;
     }
 

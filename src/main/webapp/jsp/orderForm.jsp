@@ -7,13 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "orderForm." >
 <html>
-<head>
-    <title>Taxi System - Order Page</title>
-</head>
+    <head>
+    <title><fmt:message key="title"/></title>
+    </head>
 <body>
-    <c:if test="${!empty failedMessage}">
-        <h2>${failedMessage}</h2>
+    <c:if test="${!empty requestScope.failedMessage}">
+        <h2>${requestScope.failedMessage}</h2>
     </c:if>
 
     <c:set var="page" value="/jsp/orderForm.jsp" scope="request"/>
@@ -21,15 +24,15 @@
 
     <form action="${pageContext.request.contextPath}/" method="post">
         <%--From input field with value--%>
-        <label for="fromAddress">From:</label>
+        <label for="fromAddress"><fmt:message key="from"/>:</label>
         <input id="fromAddress" type="text" name="fromAddress" value="${order.fromAddress}"/><br>
 
         <%--To input field with value--%>
-        <label for="toAddress">To:</label>
+        <label for="toAddress"><fmt:message key="to"/>:</label>
         <input id="toAddress" type="text" name="toAddress" value="${order.toAddress}"/><br>
 
         <%--To input field with value--%>
-        <label for="carType">Choose car type:</label>
+        <label for="carType"><fmt:message key="choose"/>:</label>
         <select id="carType" name="carType">
             <c:forEach var="carType" items="${carTypes}">
                 <option value="${carType.type}">${carType.type}</option>
@@ -39,7 +42,8 @@
         <%--Command hidden attribute for resolving command which is invoked--%>
         <input type="hidden" name="command" value="getPrice"/>
 
-        <input type="submit" value="Get price"/>
+        <input type="submit" value="<fmt:message key="getPriceButton"/>"/>
     </form>
 </body>
 </html>
+</fmt:bundle>

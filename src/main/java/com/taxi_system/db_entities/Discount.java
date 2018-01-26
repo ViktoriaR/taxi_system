@@ -7,12 +7,12 @@ import java.io.Serializable;
  */
 public class Discount implements Serializable {
     private long id;
-    private byte percent;
+    private float percent;
     private float bottomSum;
     private float upperSum;
     private String description;
 
-    public Discount(long id, byte percent, long bottomSum, long upperSum, String description) {
+    public Discount(long id, float percent, long bottomSum, long upperSum, String description) {
         this.id = id;
         this.percent = percent;
         this.bottomSum = bottomSum;
@@ -24,7 +24,7 @@ public class Discount implements Serializable {
         return id;
     }
 
-    public byte getPercent() {
+    public float getPercent() {
         return percent;
     }
 

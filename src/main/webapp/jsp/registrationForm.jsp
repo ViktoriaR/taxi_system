@@ -7,14 +7,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "registrationForm." >
 <html>
 <head>
-    <title>Taxi System - Registration Page</title>
+    <title><fmt:message key="title"/></title>
 </head>
 <body>
     <%--Registrarion failed message ONLY if registration failed--%>
-    <c:if test="${!empty registrationFailedMessage}">
-        <h2>${registrationFailedMessage}</h2>
+    <c:if test="${!empty requestScope.registrationFailedMessage}">
+        <h2>${requestScope.registrationFailedMessage}</h2>
     </c:if>
 
     <c:set var="page" value="/jsp/registrationForm.jsp" scope="request"/>
@@ -22,21 +25,22 @@
 
     <form action="${pageContext.request.contextPath}/" method="post">
         <%--Login input field with value and predifined attribute login from command--%>
-        <label for="login">Login:</label>
-        <input id="login" type="text" name="login" value="${login}"/><br>
+        <label for="login"><fmt:message key="login"/>:</label>
+        <input id="login" type="text" name="login" value="${requestScope.login}"/><br>
 
         <%--Password input field with label--%>
-        <label for="password">Password:</label>
+        <label for="password"><fmt:message key="password"/>:</label>
         <input id="password" type="password" name="password"/><br>
 
         <%--Name input field with value and predifined attribute name from command--%>
-        <label for="name">Name:</label>
-        <input id="name" type="text" name="name" value="${name}"/><br>
+        <label for="name"><fmt:message key="name"/>:</label>
+        <input id="name" type="text" name="name" value="${requestScope.name}"/><br>
 
         <%--Command hidden attribute for resolving command which is invoked--%>
         <input type="hidden" name="command" value="registration"/>
 
-        <input type="submit" value="Registration"/>
+        <input type="submit" value="<fmt:message key="registrationButton"/>"/>
     </form>
 </body>
 </html>
+</fmt:bundle>

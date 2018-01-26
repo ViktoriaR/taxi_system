@@ -111,7 +111,7 @@ public class Orders implements Serializable {
     public float getAmount() {
         float discount = getDiscount() != null ? getDiscount().getPercent() : 0;
         float stock = getStock() != null ? getStock().getPercent() : 0;
-        return price - price * discount / 100 - price * stock / 100;
+        return price - price * discount - price * stock;
     }
 
     public String getCarType() {

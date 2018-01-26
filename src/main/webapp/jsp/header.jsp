@@ -5,22 +5,22 @@
   Time: 1:47
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:bundle basename="resource.pagecontent" prefix = "header." >
+<fmt:bundle basename="pagecontent" prefix = "header." >
 <html>
 <head>
-    <title>Header</title>
+    <title><fmt:message key="title"/></title>
 </head>
 <body>
     <c:choose>
-        <c:when test="${sessionScope.locale == 'en_EN'}">
+        <c:when test="${sessionScope.locale == 'en_US'}">
             <fmt:message key="english"/><br>
         </c:when>
         <c:otherwise>
-            <a href=${pageContext.request.contextPath}/?command=changeLocale&locale=en-EN&page=${requestScope.page}><fmt:message key="english"/></a><br>
+            <a href=${pageContext.request.contextPath}/?command=changeLocale&locale=en_US&page=${requestScope.page}><fmt:message key="english"/></a><br>
         </c:otherwise>
     </c:choose>
     <c:choose>
@@ -28,7 +28,7 @@
             <fmt:message key="russian"/><br>
         </c:when>
         <c:otherwise>
-            <a href=${pageContext.request.contextPath}/?command=changeLocale&locale=ru-RU&page=${requestScope.page}><fmt:message key="russian"/></a><br>
+            <a href=${pageContext.request.contextPath}/?command=changeLocale&locale=ru_RU&page=${requestScope.page}><fmt:message key="russian"/></a><br>
         </c:otherwise>
     </c:choose>
 
