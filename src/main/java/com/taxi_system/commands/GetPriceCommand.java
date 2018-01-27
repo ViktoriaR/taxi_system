@@ -2,16 +2,12 @@ package com.taxi_system.commands;
 
 import com.taxi_system.db_entities.Orders;
 import com.taxi_system.facade.OrderFacade;
-import com.taxi_system.services.CarTypeService;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Enumeration;
 
 /**
  * Created by Victoria on 11.01.2018.
@@ -25,9 +21,9 @@ public class GetPriceCommand implements Command {
         String carType = request.getParameter("carType");
         String clientLogin = (String) request.getSession().getAttribute("username");
 
-        if (StringUtils.isBlank(fromAddress) || StringUtils.isBlank(toAddress) || fromAddress.equals("From?") || toAddress.equals("To?")) {
+        if (StringUtils.isBlank(fromAddress) || StringUtils.isBlank(toAddress)) {
             request.setAttribute("failedMessage", "Enter from and to address");
-            page = "/jsp/orderForm.jsp";
+            page = "/jsp/order/orderForm.jsp";
         } else {
             Orders order = (Orders) request.getSession().getAttribute("order");
             if (order == null) {
@@ -40,7 +36,7 @@ public class GetPriceCommand implements Command {
             }
             OrderFacade.addPriceToOrder(order, clientLogin);
 
-            page = "/jsp/price.jsp";
+            page = "/jsp/order/price.jsp";
         }
 
         return page;

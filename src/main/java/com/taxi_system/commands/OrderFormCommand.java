@@ -1,6 +1,5 @@
 package com.taxi_system.commands;
 
-import com.taxi_system.db_entities.Orders;
 import com.taxi_system.services.CarTypeService;
 
 import javax.servlet.ServletException;
@@ -17,6 +16,6 @@ public class OrderFormCommand implements Command {
         CarTypeService carTypeService = new CarTypeService();
         request.getSession().setAttribute("carTypes", carTypeService.getCarTypes());
 
-        return "/jsp/orderForm.jsp";
+        return "/jsp/order/orderForm.jsp";
     }
 }

@@ -11,7 +11,6 @@ import java.io.IOException;
 public class LoginFormCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("login", "Login");
         return "/jsp/loginForm.jsp";
     }
 }
