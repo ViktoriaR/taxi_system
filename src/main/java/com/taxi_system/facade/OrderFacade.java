@@ -3,6 +3,7 @@ package com.taxi_system.facade;
 import com.taxi_system.db_connection.ConnectionPool;
 import com.taxi_system.db_entities.*;
 import com.taxi_system.services.*;
+import com.taxi_system.variables.Variables;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class OrderFacade {
 
-    public static final int PRICE_PER_KM = 7;
+    public static final float PRICE_PER_KM = 0.3f;
 
     public static Orders addPriceToOrder(Orders order, String clientLogin) {
         ClientService clientService = new ClientService();
@@ -53,7 +54,7 @@ public class OrderFacade {
                 connection.setAutoCommit(false);
 
                 List<Car> cars = carService.findAvailableCars(order.getCarType());
-                if (cars.isEmpty()) throw new Exception("no available car, try again later");
+                if (cars.isEmpty()) throw new Exception(Variables.NO_AVAILABLE_CAR_EXCEPTION_MESSAGE.getValue());
                 order.setCar(cars.get(0));
 
                 Timestamp expectedBoardingTime = distanceService.calculateTime(order.getCar().getLocation(), order.getFromAddress());
@@ -73,7 +74,7 @@ public class OrderFacade {
                     client.setSum(sum);
                     connection.rollback();
                 }
-                throw new Exception("something wrong, try again later");
+                throw new Exception(Variables.EXCEPTION_MESSAGE.getValue());
             } finally {
                 if (connection != null) {
                     connection.setAutoCommit(true);

@@ -24,13 +24,15 @@
         </c:otherwise>
     </c:choose>
     <c:choose>
-        <c:when test="${sessionScope.locale == 'ru_RU'}">
+        <c:when test="${sessionScope.locale == 'ru_UA'}">
             <fmt:message key="russian"/><br>
         </c:when>
         <c:otherwise>
-            <a href=${pageContext.request.contextPath}/?command=changeLocale&locale=ru_RU&page=${requestScope.page}><fmt:message key="russian"/></a><br>
+            <a href=${pageContext.request.contextPath}/?command=changeLocale&locale=ru_UA&page=${requestScope.page}><fmt:message key="russian"/></a><br>
         </c:otherwise>
     </c:choose>
+
+    <a href=${pageContext.request.contextPath}><fmt:message key="main"/></a><br>
 
     <c:choose>
         <c:when test="${empty sessionScope.username}">

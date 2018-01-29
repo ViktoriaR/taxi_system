@@ -2,10 +2,8 @@ package com.taxi_system.dao.impl;
 
 import com.taxi_system.dao.StockDAO;
 import com.taxi_system.db_entities.Stock;
-import javafx.util.Pair;
 
 import java.sql.*;
-import java.util.Arrays;
 import java.util.List;
 
 /**

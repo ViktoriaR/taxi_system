@@ -2,7 +2,6 @@ package com.taxi_system.dao.impl;
 
 import com.taxi_system.dao.CarTypeDAO;
 import com.taxi_system.db_entities.CarType;
-import javafx.util.Pair;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

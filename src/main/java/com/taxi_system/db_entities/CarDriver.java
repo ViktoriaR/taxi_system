@@ -28,15 +28,6 @@ public class CarDriver implements Serializable {
         return phoneNumber;
     }
 
-    public String carDriverInfo() {
-        StringBuilder result = new StringBuilder();
-        result.append("com.taxi_system.db_entities.car_driver: ");
-        result.append("id = ").append(id);
-        result.append(", name = ").append(name);
-        result.append(", phone number = ").append(phoneNumber);
-        return result.toString();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

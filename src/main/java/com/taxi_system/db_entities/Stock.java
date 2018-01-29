@@ -41,15 +41,6 @@ public class Stock implements Serializable {
         return description;
     }
 
-    public String stockInfo() {
-        StringBuilder result = new StringBuilder();
-        result.append("com.taxi_system.db_entities.stock: ");
-        result.append("id = ").append(id);
-        result.append(", percent = ").append(percent);
-        result.append(", description = ").append(description).append(".");
-        return result.toString();
-    }
-
     @Override
     public String toString() {
         return "stock: " + description;

@@ -9,15 +9,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "general." >
+    <c:set var="exceptionMessage"><fmt:message key="${requestScope.exception}"/></c:set>
+</fmt:bundle>
 <fmt:bundle basename="pagecontent" prefix = "loginForm." >
-    <html>
+<html>
     <head>
         <title><fmt:message key="title"/></title>
     </head>
 <body>
     <%--Login failed message ONLY if login failed--%>
-    <c:if test="${!empty requestScope.loginFailedMessage}">
-        <h2>${requestScope.loginFailedMessage}</h2>
+    <c:if test="${!empty requestScope.exception}">
+        <h2>${exceptionMessage}</h2>
     </c:if>
 
     <c:set var="page" value="/jsp/loginForm.jsp" scope="request"/>

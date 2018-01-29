@@ -3,6 +3,7 @@ package com.taxi_system.services;
 import com.taxi_system.dao.ClientDAO;
 import com.taxi_system.dao.factory.FactoryDAO;
 import com.taxi_system.db_entities.Client;
+import com.taxi_system.variables.Variables;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,17 +23,8 @@ public class ClientService {
     }
 
     public void addClient(String login, String password, String name) throws Exception {
-        if (clientDao.findByLogin(login) != null) throw new Exception("Login is already exists");
-        if (password.equals("")) throw new Exception("Enter password");
+        if (clientDao.findByLogin(login) != null) throw new Exception(Variables.LOGIN_EXISTS_EXCEPTION_MESSAGE.getValue());
         clientDao.add(login, password, name);
-    }
-
-    public void updateClient(Client client) {
-        clientDao.update(client);
-    }
-
-    public void deleteClient(String login, String password) {
-        clientDao.delete(new Client(login, password, null));
     }
 
     public Client getClient(String login) {

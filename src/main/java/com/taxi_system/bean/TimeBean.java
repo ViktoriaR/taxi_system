@@ -20,10 +20,7 @@ public class TimeBean {
 
     public void setLeftTime(Timestamp compareTime) {
         long seconds = (compareTime.getTime() - new Timestamp(System.currentTimeMillis()).getTime()) / MILLIS_PER_SECOND;
-        if (seconds <= 0) {
-            hoursLeft = 0;
-            minutesLeft = 0;
-        } else {
+        if (seconds > 0) {
             hoursLeft = seconds / SECONDS_PER_HOUR;
             minutesLeft = (seconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE;
         }

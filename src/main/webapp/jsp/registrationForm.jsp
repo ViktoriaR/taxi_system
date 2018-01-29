@@ -9,6 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "general." >
+    <c:set var="exceptionMessage"><fmt:message key="${requestScope.exception}"/></c:set>
+</fmt:bundle>
 <fmt:bundle basename="pagecontent" prefix = "registrationForm." >
 <html>
 <head>
@@ -16,8 +19,8 @@
 </head>
 <body>
     <%--Registrarion failed message ONLY if registration failed--%>
-    <c:if test="${!empty requestScope.registrationFailedMessage}">
-        <h2>${requestScope.registrationFailedMessage}</h2>
+    <c:if test="${!empty requestScope.exception}">
+        <h2>${exceptionMessage}</h2>
     </c:if>
 
     <c:set var="page" value="/jsp/registrationForm.jsp" scope="request"/>

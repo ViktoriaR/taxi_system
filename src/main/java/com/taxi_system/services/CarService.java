@@ -28,16 +28,4 @@ public class CarService {
     public void updateCarInDB(Connection connection, Car car) throws SQLException {
         carDAO.updateInDB(connection, car);
     }
-
-    public boolean bookCar(Car car) {
-        return carDAO.changeCarStatus(car, false);
-    }
-
-    public boolean freeCar(Car car) {
-        return carDAO.changeCarStatus(car, true);
-    }
-
-    public Car getCarById(int id) {
-        return carDAO.getById(id);
-    }
 }

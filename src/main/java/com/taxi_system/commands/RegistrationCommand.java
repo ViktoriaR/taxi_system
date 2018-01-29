@@ -1,6 +1,7 @@
 package com.taxi_system.commands;
 
 import com.taxi_system.services.ClientService;
+import com.taxi_system.variables.Variables;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
@@ -16,22 +17,22 @@ public class RegistrationCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ClientService clientService = new ClientService();
         String page;
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
+        String login = request.getParameter(Variables.LOGIN_NAME.getValue());
+        String password = request.getParameter(Variables.PASSWORD_NAME.getValue());
+        String name = request.getParameter(Variables.NAME_NAME.getValue());
 
         try {
             if (StringUtils.isBlank(login) && StringUtils.isBlank(password)) {
-                throw new Exception("Enter login and password");
+                throw new Exception(Variables.BLANK_LOGIN_PASSWORD_EXCEPTION_MESSAGE.getValue());
             }
             clientService.addClient(login, password, name);
-            request.getSession().setAttribute("username", login);
-            page = "/index.jsp";
+            request.getSession().setAttribute(Variables.USER_NAME.getValue(), login);
+            page = Variables.INDEX_PAGE.getValue();
         } catch (Exception e) {
-            request.setAttribute("registrationFailedMessage", e.getMessage());
-            request.setAttribute("login", login);
-            request.setAttribute("name", name);
-            page = "/jsp/registrationForm.jsp";
+            request.setAttribute(Variables.EXCEPTION_NAME.getValue(), e.getMessage());
+            request.setAttribute(Variables.LOGIN_NAME.getValue(), login);
+            request.setAttribute(Variables.NAME_NAME.getValue(), name);
+            page = Variables.REGISTRATION_FORM_PAGE.getValue();
         }
 
         return page;

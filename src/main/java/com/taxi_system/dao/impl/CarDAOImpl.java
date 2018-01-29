@@ -7,13 +7,10 @@ import com.taxi_system.dao.factory.FactoryDAO;
 import com.taxi_system.db_entities.Car;
 import com.taxi_system.db_entities.CarDriver;
 import com.taxi_system.db_entities.CarType;
-import javafx.util.Pair;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -86,18 +83,6 @@ public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
     @Override
     public List<Car> findAvailableCarByType(CarType carType) {
         return carType == null ? null : read(Arrays.asList("type_id = " + carType.getId(), "available = true"));
-    }
-
-    @Override
-    public boolean changeCarStatus(Car car, boolean available) {
-        if (car == null) return false;
-        car.setAvailable(available);
-        List<Car> cars = read(Arrays.asList("id = " + car.getId()));
-        if (cars.isEmpty()) return false;
-        Car carInDB = cars.get(0);
-        if (carInDB.isAvailable() == car.isAvailable()) return false;
-        update(car);
-        return true;
     }
 
     @Override

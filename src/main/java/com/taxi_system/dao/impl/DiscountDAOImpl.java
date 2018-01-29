@@ -2,7 +2,6 @@ package com.taxi_system.dao.impl;
 
 import com.taxi_system.dao.DiscountDAO;
 import com.taxi_system.db_entities.Discount;
-import javafx.util.Pair;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

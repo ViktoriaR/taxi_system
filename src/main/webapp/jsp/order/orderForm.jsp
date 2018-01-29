@@ -9,17 +9,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "general." >
+    <c:set var="exceptionMessage"><fmt:message key="${requestScope.exception}"/></c:set>
+</fmt:bundle>
 <fmt:bundle basename="pagecontent" prefix = "orderForm." >
 <html>
     <head>
     <title><fmt:message key="title"/></title>
     </head>
 <body>
-    <c:if test="${!empty requestScope.failedMessage}">
-        <h2>${requestScope.failedMessage}</h2>
+    <c:if test="${!empty requestScope.exception}">
+        <h2>${exceptionMessage}</h2>
     </c:if>
 
-    <c:set var="page" value="/jsp/orderForm.jsp" scope="request"/>
+    <c:set var="page" value="/jsp/order/orderForm.jsp" scope="request"/>
     <c:import url="/jsp/header.jsp" />
 
     <form action="${pageContext.request.contextPath}/" method="post">

@@ -54,8 +54,10 @@ public class TaxiSystemServlet extends HttpServlet {
 //            request.setAttribute("messageError", Message.getInstance().getProperty(Message.IO_EXCEPTION));
             page = Config.getInstance().getProperty(Config.ERROR);
         }
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        dispatcher.forward(request, response);
+        if (page != null) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            dispatcher.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -67,16 +67,6 @@ public class Client implements Serializable {
         this.sum = sum;
     }
 
-    public String clientInfo() {
-        StringBuilder result = new StringBuilder();
-        result.append("com.taxi_system.db_entities.client: ");
-        result.append("id = ").append(clientId);
-        result.append(", name = ").append(name);
-        result.append(", phone number = ").append(login);
-        result.append(", spent money =  ").append(sum);
-        return result.toString();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

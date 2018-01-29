@@ -40,15 +40,6 @@ public class Discount implements Serializable {
         return description;
     }
 
-    public String discountInfo() {
-        StringBuilder result = new StringBuilder();
-        result.append("com.taxi_system.db_entities.discount: ");
-        result.append("id = ").append(id);
-        result.append(", percent = ").append(percent);
-        result.append(", description = ").append(description).append(".");
-        return result.toString();
-    }
-
     @Override
     public String toString() {
         return "discount: " + description;
