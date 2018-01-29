@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Victoria
@@ -6,44 +5,41 @@
   Time: 19:52
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:bundle basename="pagecontent" prefix = "general." >
-    <c:set var="exceptionMessage"><fmt:message key="${requestScope.exception}"/></c:set>
-</fmt:bundle>
-<fmt:bundle basename="pagecontent" prefix = "registrationForm." >
-<html>
-<head>
-    <title><fmt:message key="title"/></title>
-</head>
-<body>
-    <%--Registrarion failed message ONLY if registration failed--%>
-    <c:if test="${!empty requestScope.exception}">
-        <h2>${exceptionMessage}</h2>
-    </c:if>
 
-    <c:set var="page" value="/jsp/registrationForm.jsp" scope="request"/>
-    <c:import url="/jsp/header.jsp" />
+<c:set var="page" value="/jsp/registrationForm.jsp" scope="request"/>
+<c:set var="title" value="registrationForm.title" scope="request"/>
+<c:import url="/jsp/header.jsp" />
+
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "registrationForm." >    
 
     <form action="${pageContext.request.contextPath}/" method="post">
         <%--Login input field with value and predifined attribute login from command--%>
-        <label for="login"><fmt:message key="login"/>:</label>
-        <input id="login" type="text" name="login" value="${requestScope.login}"/><br>
+        <div class="form-group">
+            <label for="login"><fmt:message key="login"/>:</label>
+            <input class="form-control" id="login" type="text" name="login" value="${requestScope.login}"/>
+        </div>
 
         <%--Password input field with label--%>
-        <label for="password"><fmt:message key="password"/>:</label>
-        <input id="password" type="password" name="password"/><br>
+        <div class="form-group">
+            <label for="password"><fmt:message key="password"/>:</label>
+            <input class="form-control" id="password" type="password" name="password"/>
+        </div>
 
         <%--Name input field with value and predifined attribute name from command--%>
-        <label for="name"><fmt:message key="name"/>:</label>
-        <input id="name" type="text" name="name" value="${requestScope.name}"/><br>
+        <div class="form-group">
+            <label for="name"><fmt:message key="name"/>:</label>
+            <input class="form-control" id="name" type="text" name="name" value="${requestScope.name}"/>
+        </div>
 
         <%--Command hidden attribute for resolving command which is invoked--%>
-        <input type="hidden" name="command" value="registration"/>
+        <input class="form-control" type="hidden" name="command" value="registration"/>
 
-        <input type="submit" value="<fmt:message key="registrationButton"/>"/>
+        <button type="submit" class="btn btn-default"><fmt:message key="registrationButton"/></button>
     </form>
-</body>
-</html>
 </fmt:bundle>
+
+<c:import url="/jsp/footer.jsp" />

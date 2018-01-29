@@ -8,38 +8,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:bundle basename="pagecontent" prefix = "general." >
-    <c:set var="exceptionMessage"><fmt:message key="${requestScope.exception}"/></c:set>
-</fmt:bundle>
-<fmt:bundle basename="pagecontent" prefix = "loginForm." >
-<html>
-    <head>
-        <title><fmt:message key="title"/></title>
-    </head>
-<body>
-    <%--Login failed message ONLY if login failed--%>
-    <c:if test="${!empty requestScope.exception}">
-        <h2>${exceptionMessage}</h2>
-    </c:if>
 
-    <c:set var="page" value="/jsp/loginForm.jsp" scope="request"/>
-    <c:import url="/jsp/header.jsp" />
+<c:set var="page" value="/jsp/loginForm.jsp" scope="request"/>
+<c:set var="title" value="loginForm.title" scope="request"/>
+<c:import url="/jsp/header.jsp" />
+
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:bundle basename="pagecontent" prefix = "loginForm." >
 
     <form action="${pageContext.request.contextPath}/" method="post">
         <%--Login input field with value and predifined attribute login from command--%>
-        <label for="login"><fmt:message key="login"/>:</label>
-        <input id="login" type="text" name="login" value="${requestScope.login}"/><br>
+        <div class="form-group">
+            <label for="login"><fmt:message key="login"/>:</label>
+            <input class="form-control" id="login" type="text" name="login" value="${requestScope.login}"/>
+        </div>
 
         <%--Password input field with label--%>
-        <label for="password"><fmt:message key="password"/>:</label>
-        <input id="password" type="password" name="password"/><br>
+        <div class="form-group">
+            <label for="password"><fmt:message key="password"/>:</label>
+            <input class="form-control" id="password" type="password" name="password"/>
+        </div>
 
         <%--Command hidden attribute for resolving command which is invoked--%>
-        <input type="hidden" name="command" value="login"/>
+        <input class="form-control" type="hidden" name="command" value="login"/>
 
-        <input type="submit" value="<fmt:message key="loginButton"/>"/>
+        <button type="submit" class="btn btn-default"><fmt:message key="loginButton"/></button>
     </form>
-</body>
-</html>
 </fmt:bundle>
+
+<c:import url="/jsp/footer.jsp" />
