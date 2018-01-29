@@ -1,9 +1,6 @@
 package com.taxi_system.bean;
 
-import com.taxi_system.db_entities.Orders;
-
 import java.sql.Timestamp;
-import java.time.LocalTime;
 
 /**
  * Created by Victoria on 27.01.2018.

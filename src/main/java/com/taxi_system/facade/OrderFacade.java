@@ -4,6 +4,8 @@ import com.taxi_system.db_connection.ConnectionPool;
 import com.taxi_system.db_entities.*;
 import com.taxi_system.services.*;
 import com.taxi_system.variables.Variables;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,6 +17,7 @@ import java.util.List;
  * Created by Victoria on 12.01.2018.
  */
 public class OrderFacade {
+    private static final Logger logger = LogManager.getLogger();
 
     public static final float PRICE_PER_KM = 0.3f;
 
@@ -69,11 +72,13 @@ public class OrderFacade {
                 clientService.updateClientInDB(connection, client);
 
                 connection.commit();
+                logger.info("save order transaction success");
             } catch (SQLException e) {
                 if (connection != null) {
                     client.setSum(sum);
                     connection.rollback();
                 }
+                logger.error("save order transaction failed", e);
                 throw new Exception(Variables.EXCEPTION_MESSAGE.getValue());
             } finally {
                 if (connection != null) {
@@ -82,7 +87,7 @@ public class OrderFacade {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("problems with connection to db", e);
         }
 
         return order;

@@ -7,6 +7,8 @@ import com.taxi_system.dao.factory.FactoryDAO;
 import com.taxi_system.db_entities.Car;
 import com.taxi_system.db_entities.CarDriver;
 import com.taxi_system.db_entities.CarType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import java.util.List;
  * Created by Victoria on 25.12.2017.
  */
 public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String getCreateQuery(Car object) {
@@ -75,7 +78,7 @@ public class CarDAOImpl extends AbstractCRUD<Car> implements CarDAO {
             String location = rs.getString("location");
             car = new Car(id, carType, carDriver, model, number, available, location);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("convert result set from db to Car failed", e);
         }
         return car;
     }

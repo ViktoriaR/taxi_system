@@ -15,7 +15,6 @@ public class Config {
     public static final String URL = "URL";
     public static final String USER = "USER";
     public static final String PASSWORD = "PASSWORD";
-    public static final String ERROR = "ERROR";
 
     public static Config getInstance() {
         if (instance == null) {

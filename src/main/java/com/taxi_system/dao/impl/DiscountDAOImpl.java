@@ -2,6 +2,8 @@ package com.taxi_system.dao.impl;
 
 import com.taxi_system.dao.DiscountDAO;
 import com.taxi_system.db_entities.Discount;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +14,7 @@ import java.util.List;
  * Created by Victoria on 25.12.2017.
  */
 public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountDAO{
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String getCreateQuery(Discount object) {
@@ -55,7 +58,7 @@ public class DiscountDAOImpl extends AbstractCRUD<Discount> implements DiscountD
             String description = rs.getString("description");
             discount = new Discount(id, percent, bottomSum, upperSum, description);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("convert result set from db to Discount failed", e);
         }
         return discount;
     }

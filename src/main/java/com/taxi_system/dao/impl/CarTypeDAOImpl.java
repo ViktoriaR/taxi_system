@@ -2,6 +2,8 @@ package com.taxi_system.dao.impl;
 
 import com.taxi_system.dao.CarTypeDAO;
 import com.taxi_system.db_entities.CarType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +14,7 @@ import java.util.List;
  * Created by Victoria on 25.12.2017.
  */
 public class CarTypeDAOImpl extends AbstractCRUD<CarType> implements CarTypeDAO {
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String getCreateQuery(CarType object) {
@@ -52,7 +55,7 @@ public class CarTypeDAOImpl extends AbstractCRUD<CarType> implements CarTypeDAO 
             Float coefficient = rs.getFloat("coefficient");
             carType = new CarType(id, type, description, coefficient);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("convert result set from db to CarType failed", e);
         }
         return carType;
     }

@@ -6,6 +6,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 //import javax.sql.DataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 
 /**
@@ -13,6 +15,7 @@ import org.apache.tomcat.jdbc.pool.DataSource;
  */
 
 public class ConnectionPool {
+    private static final Logger logger = LogManager.getLogger();
 
     private static ConnectionPool instance = null;
     private static final String TOMCAT_JNDI_NAME = "java:comp/env";
@@ -39,7 +42,7 @@ public class ConnectionPool {
 //            pool = (DataSource) envContext.lookup(DATASOURCE);
             pool = hackyInit();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("failed to init pool", e);
         }
     }
 
@@ -53,7 +56,7 @@ public class ConnectionPool {
                 connection.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("failed to close connection", e);
         }
     }
 

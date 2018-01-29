@@ -2,6 +2,8 @@ package com.taxi_system.dao.impl;
 
 import com.taxi_system.dao.StockDAO;
 import com.taxi_system.db_entities.Stock;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
  * Created by Victoria on 25.12.2017.
  */
 public class StockDAOImpl extends AbstractCRUD<Stock> implements StockDAO {
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String getCreateQuery(Stock object) {
@@ -53,7 +56,7 @@ public class StockDAOImpl extends AbstractCRUD<Stock> implements StockDAO {
             String description = rs.getString("description");
             stock = new Stock(id, percent, startDate, endDate, description);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("convert result set from db to Stock failed", e);
         }
         return stock;
     }

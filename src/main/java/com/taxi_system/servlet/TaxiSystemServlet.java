@@ -1,7 +1,9 @@
 package com.taxi_system.servlet;
 
 import com.taxi_system.commands.Command;
-import com.taxi_system.db_connection.Config;
+import com.taxi_system.variables.Variables;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ import java.io.IOException;
         urlPatterns = {""}
 )
 public class TaxiSystemServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger();
 
     TaxiSystemServletHelper helper = TaxiSystemServletHelper.getInstance();
 
@@ -38,21 +41,13 @@ public class TaxiSystemServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        SessionLogic.print(request,response);
-//        CookieLogic.setCokkie(response);
-//        CookieLogic.printCookie(request,response);
-        String page = null;
+        String page;
+        Command command = helper.getCommand(request);
         try {
-            Command command = helper.getCommand(request);
             page = command.execute(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-//            request.setAttribute("messageError", Message.getInstance().getProperty(Message.SERVLET_EXECPTION));
-            page = Config.getInstance().getProperty(Config.ERROR);
-        } catch (IOException e) {
-            e.printStackTrace();
-//            request.setAttribute("messageError", Message.getInstance().getProperty(Message.IO_EXCEPTION));
-            page = Config.getInstance().getProperty(Config.ERROR);
+        } catch (ServletException | IOException e) {
+            logger.error("failed to execute command" + request.getParameter("command"), e);
+            page = Variables.INDEX_PAGE.getValue();
         }
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
@@ -60,7 +55,6 @@ public class TaxiSystemServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.
@@ -75,15 +69,6 @@ public class TaxiSystemServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String jsp = "/jsp/first.jsp";
-//        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(jsp);
-//        req.setAttribute("testMessage", "My first request attribute");
-//        addDBResultToRequest(req);
-//        requestDispatcher.forward(req, resp);
-//    }
 
     /**
      * Handles the HTTP
@@ -108,6 +93,6 @@ public class TaxiSystemServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

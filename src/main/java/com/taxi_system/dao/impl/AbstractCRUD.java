@@ -1,6 +1,8 @@
 package com.taxi_system.dao.impl;
 
 import com.taxi_system.db_connection.ConnectionPool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +16,7 @@ import java.util.List;
  * Created by Victoria on 25.12.2017.
  */
 public abstract class AbstractCRUD<T> {
+    private static final Logger logger = LogManager.getLogger();
 
     public int create(T object) {
         return executeCommand(getCreateQuery(object));
@@ -26,7 +29,7 @@ public abstract class AbstractCRUD<T> {
         try (Connection cn = pool.getConnection()) {
             result = doRead(cn, getReadQuery(conditionsToString(conditions)));
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("read from database failed", e);
         }
 
         return result;
@@ -47,7 +50,7 @@ public abstract class AbstractCRUD<T> {
         try (Connection cn = pool.getConnection()) {
             result = doExecute(cn, query);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("execute command failed", e);
         }
 
         return result;

@@ -2,6 +2,8 @@ package com.taxi_system.dao.impl;
 
 import com.taxi_system.dao.CarDriverDAO;
 import com.taxi_system.db_entities.CarDriver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +12,7 @@ import java.sql.SQLException;
  * Created by Victoria on 25.12.2017.
  */
 public class CarDriverDAOImpl extends AbstractCRUD<CarDriver> implements CarDriverDAO {
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String getCreateQuery(CarDriver object) {
@@ -47,7 +50,7 @@ public class CarDriverDAOImpl extends AbstractCRUD<CarDriver> implements CarDriv
             String phoneNumber = rs.getString("phone_number");
             carDriver = new CarDriver(id, name, phoneNumber);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("convert result set from db to CarDriver failed", e);
         }
         return carDriver;
     }

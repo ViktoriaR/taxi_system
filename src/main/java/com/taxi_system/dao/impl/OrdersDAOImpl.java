@@ -3,6 +3,8 @@ package com.taxi_system.dao.impl;
 import com.taxi_system.dao.*;
 import com.taxi_system.dao.factory.FactoryDAO;
 import com.taxi_system.db_entities.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
  * Created by Victoria on 25.12.2017.
  */
 public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO {
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String getCreateQuery(Orders object) {
@@ -85,7 +88,7 @@ public class OrdersDAOImpl extends AbstractCRUD<Orders> implements OrdersDAO {
             orders.setClient(client).setId(id).setCar(car).setDiscount(discount).setStock(stock);
             orders.setDistance(distance).setPrice(price);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("convert result set from db to Orders failed", e);
         }
         return orders;
     }
