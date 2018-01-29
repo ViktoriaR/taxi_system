@@ -56,19 +56,6 @@ public class Car implements Serializable {
         return location;
     }
 
-    public String carInfo() {
-        StringBuilder result = new StringBuilder();
-        result.append("com.taxi_system.db_entities.car: ");
-        result.append("id = ").append(id);
-        result.append(", car number = ").append(number);
-        result.append(", car model = ").append(model);
-        result.append(", ").append(carType.getType());
-        result.append(", ").append(carDriver.getName());
-        result.append(", available =  ").append(available);
-        result.append(", location =  ").append(location);
-        return result.toString();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
