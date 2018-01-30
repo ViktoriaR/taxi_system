@@ -36,7 +36,7 @@ public class ProcessOrderCommand implements Command {
             } catch (Exception e) {
                 request.setAttribute(Variables.EXCEPTION_NAME.getValue(), e.getMessage());
                 page = Variables.PRICE_PAGE.getValue();
-                logger.info("user " + username + " failed to submit order, " + e.getMessage());
+                logger.error("user " + username + " failed to submit order, " + e.getMessage());
             }
         }
 

@@ -2,6 +2,7 @@ package com.taxi_system.services;
 
 import com.taxi_system.dao.ClientDAO;
 import com.taxi_system.dao.factory.FactoryDAO;
+import com.taxi_system.dao.impl.ClientDAOImpl;
 import com.taxi_system.db_entities.Client;
 import com.taxi_system.variables.Variables;
 
@@ -15,7 +16,7 @@ public class ClientService {
     private ClientDAO clientDao;
 
     public ClientService() {
-        clientDao = FactoryDAO.getClientDAO();
+        clientDao = initClientDAO();
     }
 
     public boolean checkClient(String login, String password) {
@@ -33,5 +34,9 @@ public class ClientService {
 
     public void updateClientInDB(Connection connection, Client client) throws SQLException {
         clientDao.updateInDB(connection, client);
+    }
+
+    protected ClientDAO initClientDAO() {
+        return FactoryDAO.getClientDAO();
     }
 }
