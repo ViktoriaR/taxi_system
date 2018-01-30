@@ -20,12 +20,25 @@ public class CarService {
         carDAO = initCarDAO();
     }
 
+    /**
+     * This method returns <code>List<Car></code> of available cars from db,
+     * or <code>null</code> if no available cars in db
+     *
+     * @param carTypeString servlet request
+     * @return a <code>List<Car></code> of available cars from db
+     */
     public List<Car> findAvailableCars(String carTypeString) {
         CarTypeService carTypeService = getCarTypeService();
         CarType carType = carTypeService.getCarTypeByName(carTypeString);
         return carDAO.findAvailableCarByType(carType);
     }
 
+    /**
+     * This method add update SQL statements to transaction in connection
+     *
+     * @param connection to db
+     * @param car is Car, that should be update
+     */
     public void updateCarInDB(Connection connection, Car car) throws SQLException {
         carDAO.updateInDB(connection, car);
     }

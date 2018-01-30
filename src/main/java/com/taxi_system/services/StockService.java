@@ -16,6 +16,11 @@ public class StockService {
         stockDAO = FactoryDAO.getStockDAO();
     }
 
+    /**
+     * This method get stock, which is active at current time, from db
+     *
+     * @return stock if there is active stock, otherwise <code>null</code>
+     */
     public Stock getCurrentStock() {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         return stockDAO.getStockByTime(currentTime);

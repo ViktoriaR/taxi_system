@@ -25,6 +25,12 @@ public class OrdersService {
         ordersDAO = FactoryDAO.getOrdersDAO();
     }
 
+    /**
+     * This method add create SQL statements to transaction in connection
+     *
+     * @param connection to db
+     * @param order is Order, that should be create
+     */
     public void createOrderInDB(Connection connection, Orders order) throws SQLException {
         ordersDAO.saveToDB(connection, order);
     }

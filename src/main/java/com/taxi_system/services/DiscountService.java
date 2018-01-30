@@ -15,6 +15,12 @@ public class DiscountService {
         discountDAO = new DiscountDAOImpl();
     }
 
+    /**
+     * This method get discount for client sum from db
+     *
+     * @param client
+     * @return discount if there is discount for client sum, otherwise <code>null</code>
+     */
     public Discount getDiscountForClient(Client client) {
         return discountDAO.getDiscountOnSum(client.getSum());
     }

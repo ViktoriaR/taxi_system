@@ -27,6 +27,14 @@ public class TaxiSystemServletHelper {
         commands.put("orderDetails", new OrderDetailsCommand());
     }
 
+    /**
+     * This method returns command from {@link #commands}, if there is no
+     * such command returns MissingCommand
+     *
+     * @param request servlet request
+     * @return a <code>Command</code> implementation, that corresponds
+     * to command from request
+     */
     public Command getCommand(HttpServletRequest request) {
         Command command = commands.get(request.getParameter("command"));
         if (command == null) {
@@ -35,6 +43,11 @@ public class TaxiSystemServletHelper {
         return command;
     }
 
+    /**
+     * This method returns instance of TaxiSystemServletHelper
+     *
+     * @return a <code>TaxiSystemServletHelper</code>
+     */
     public static TaxiSystemServletHelper getInstance() {
         if (instance == null) {
             instance = new TaxiSystemServletHelper();

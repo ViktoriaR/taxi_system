@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.Period;
 import java.util.List;
 
 /**
@@ -21,6 +20,13 @@ public class OrderFacade {
 
     public static final float PRICE_PER_KM = 0.3f;
 
+    /**
+     * This method add price to order
+     *
+     * @param order current order
+     * @param clientLogin username
+     * @return order with added price
+     */
     public static Orders addPriceToOrder(Orders order, String clientLogin) {
         ClientService clientService = new ClientService();
         DistanceService distanceService = new DistanceService();
@@ -42,6 +48,13 @@ public class OrderFacade {
         return order;
     }
 
+    /**
+     * This method create transaction to save order, update client and car in db
+     *
+     * @param order current order
+     * @return saved order
+     * @throws Exception if transaction failed
+     */
     public static Orders processOrder(Orders order) throws Exception {
         Connection connection = null;
         CarService carService = new CarService();
